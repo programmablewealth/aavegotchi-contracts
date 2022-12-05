@@ -333,6 +333,7 @@ export const wearablesSvgs = [
   329,
   330,
   331,
+  wearable("respecPotion/316_RespecPotion"),
 ];
 
 export const sleeveSvgs = [

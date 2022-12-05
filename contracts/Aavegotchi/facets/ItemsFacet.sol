@@ -329,6 +329,30 @@ contract ItemsFacet is Modifiers {
                 s.aavegotchis[_tokenId].experience = experience;
             }
 
+            {
+                // prevent stack too deep error with braces here (todo fix this)
+                //Respec
+                if (itemType.svgId == LibItems.CONSUMABLE_RESPEC_POTION_ID) {
+                    // must have spent at least 1 skill point
+                    require(s.aavegotchis[_tokenId].usedSkillPoints > 0, "ItemsFacet: Aavegotchi has not spent any skill points");
+
+                    // use the gotchi's random number to get the initial traits
+                    uint256 hauntId = s.aavegotchis[_tokenId].hauntId;
+                    uint256 randomNumber = s.aavegotchis[_tokenId].randomNumber;
+                    address collateralType = s.hauntCollateralTypes[hauntId][randomNumber % s.hauntCollateralTypes[hauntId].length];
+                
+                    // reset the traits
+                    s.aavegotchis[_tokenId].numericTraits = LibAavegotchi.toNumericTraits(
+                        randomNumber,
+                        s.collateralTypeInfo[collateralType].modifiers,
+                        hauntId
+                    );
+
+                    // reset usedSkillsPoints
+                    s.aavegotchis[_tokenId].usedSkillPoints = 0;
+                }
+            }
+
             itemType.totalQuantity -= quantity;
             LibAavegotchi.interact(_tokenId);
             LibERC1155Marketplace.updateERC1155Listing(address(this), itemId, sender);

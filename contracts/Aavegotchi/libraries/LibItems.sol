@@ -27,6 +27,8 @@ library LibItems {
 
     uint8 internal constant WEARABLE_SLOTS_TOTAL = 11;
 
+    uint256 internal constant CONSUMABLE_RESPEC_POTION_ID = 316;
+
     function itemBalancesOfTokenWithTypes(address _tokenContract, uint256 _tokenId)
         internal
         view
