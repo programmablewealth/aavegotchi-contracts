@@ -6,12 +6,24 @@ import {
 } from "../../tasks/deployUpgrade";
 import { maticDiamondAddress } from "../helperFunctions";
 
+// todo: complete test
+
 export async function upgrade() {
   const diamondUpgrader = "0x35fe3df776474a7b24b3b1ec6e745a830fdad351";
 
   const facets: FacetsAndAddSelectors[] = [
     {
       facetName: "AavegotchiGameFacet",
+      addSelectors: [],
+      removeSelectors: [],
+    },
+    {
+      facetName: "contracts/Aavegotchi/facets/AavegotchiFacet.sol:AavegotchiFacet",
+      addSelectors: [],
+      removeSelectors: [],
+    },
+    {
+      facetName: "contracts/Aavegotchi/facets/ItemsFacet.sol:ItemsFacet",
       addSelectors: [],
       removeSelectors: [],
     },
